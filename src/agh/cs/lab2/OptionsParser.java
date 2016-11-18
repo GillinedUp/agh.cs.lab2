@@ -15,7 +15,7 @@ public class OptionsParser {
                 directions[i] = MoveDirection.Right;
             } else if (inString[i].equals("l") || inString[i].equals("left")) {
                 directions[i] = MoveDirection.Left;
-            }
+            } else throw new IllegalArgumentException(directions[i] + " is not legal move specification");
         }
         return directions;
     }

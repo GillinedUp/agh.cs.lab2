@@ -1,7 +1,5 @@
 package agh.cs.lab2;
 
-import java.util.List;
-
 /**
  * Interface responsible for interacting with the map of the world.
  *

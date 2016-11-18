@@ -9,13 +9,11 @@ import java.util.List;
 public class RectangularMap extends AbstractWordMap {
     private Position UpperBound;
     private Position LowerBound;
-    List<Car> carList;
 
     // constructor
     public RectangularMap(int width, int height){
         this.UpperBound = new Position(width, height);
         this.LowerBound = new Position(0, 0);
-        this.carList = new LinkedList<>();
     }
 
     @Override
@@ -24,14 +22,7 @@ public class RectangularMap extends AbstractWordMap {
             this.carList.add(car);
             return true;
         }
-        return false;
-    }
-
-    @Override
-    public void run(MoveDirection[] directions) {
-        for(int i = 0; i < directions.length; i++) {
-            this.carList.get(i % this.carList.size()).move(directions[i]);
-        }
+        throw new IllegalArgumentException(car.getPosition().toString() + "is already occupied");
     }
 
     @Override

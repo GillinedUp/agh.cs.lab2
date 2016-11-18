@@ -7,13 +7,17 @@ import java.util.List;
  * Created by yurii on 11/10/16.
  */
 public class UnboundedMap extends AbstractWordMap {
-    private List<IMapElement> elementList;
-    private List<Car> carList;
+    private List<IMapElement> elementList = new LinkedList<>();
 
     // constructor
     public UnboundedMap(List<IMapElement> stacks) {
-        this.elementList = stacks;
-        this.carList = new LinkedList<>();
+        this.addStack(stacks);
+    }
+
+    public void addStack(List<IMapElement> stacks) {
+        for (int i = 0; i < stacks.size(); i++) {
+
+        }
     }
 
     @Override
@@ -28,14 +32,7 @@ public class UnboundedMap extends AbstractWordMap {
             this.carList.add(car);
             return true;
         }
-        return false;
-    }
-
-    @Override
-    public void run(MoveDirection[] directions) {
-        for(int i = 0; i < directions.length; i++) {
-            this.carList.get(i % this.carList.size()).move(directions[i]);
-        }
+        throw new IllegalArgumentException(car.getPosition().toString() + "is already occupied");
     }
 
     @Override
@@ -56,6 +53,7 @@ public class UnboundedMap extends AbstractWordMap {
         return null;
     }
 
+    @Override
     public String toString() {
         int highestX = 0;
         int lowestX = 0;
