@@ -1,13 +1,14 @@
 package agh.cs.lab2;
 
-import java.util.LinkedList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by yurii on 11/10/16.
  */
 public class UnboundedMap extends AbstractWordMap {
-    private List<IMapElement> elementList = new LinkedList<>();
+    private Map<Position,IMapElement> elements = new LinkedHashMap<>();
 
     // constructor
     public UnboundedMap(List<IMapElement> stacks) {
@@ -17,7 +18,7 @@ public class UnboundedMap extends AbstractWordMap {
     public void addStack(List<IMapElement> stacks) {
         for (int i = 0; i < stacks.size(); i++) {
             if(canMoveTo(stacks.get(i).getPosition())) {
-                elementList.add(stacks.get(i));
+                elements.put(stacks.get(i).getPosition(), stacks.get(i));
             }
             else throw new IllegalArgumentException(stacks.get(i).getPosition().toString() + " is already occupied");
         }
@@ -31,8 +32,8 @@ public class UnboundedMap extends AbstractWordMap {
     @Override
     public boolean add(Car car) {
         if(canMoveTo(car.getPosition())) {
-            this.elementList.add(car);
-            this.carList.add(car);
+            this.elements.put(car.getPosition(), car);
+            this.cars.put(car.getPosition(), car);
             return true;
         }
         throw new IllegalArgumentException(car.getPosition().toString() + " is already occupied");
@@ -40,20 +41,16 @@ public class UnboundedMap extends AbstractWordMap {
 
     @Override
     public boolean isOccupied(Position position) {
-        for (int i = 0; i < elementList.size(); i++) {
-            if(elementList.get(i).getPosition().equals(position))
-                return true;
-        }
-        return false;
+        if(elements.get(position) != null) {
+            return true;
+        } else return false;
     }
 
     @Override
     public Object objectAt(Position position) {
-        for (int i = 0; i < elementList.size(); i++) {
-            if(elementList.get(i).getPosition().equals(position))
-                return elementList.get(i);
-        }
-        return null;
+        if(elements.get(position) != null) {
+            return elements.get(position);
+        } else return false;
     }
 
     @Override
@@ -62,16 +59,16 @@ public class UnboundedMap extends AbstractWordMap {
         int lowestX = 0;
         int highestY = 0;
         int lowestY = 0;
-        for (int i = 0; i < elementList.size(); i++) {
-            Position current = elementList.get(i).getPosition();
-            if(current.x > highestX) {
+        for (Map.Entry me : elements.entrySet()) {
+            Position current = (Position) me.getKey();
+            if (current.x > highestX) {
                 highestX = current.x;
-            } else if (current.x < lowestX){
+            } else if (current.x < lowestX) {
                 lowestX = current.x;
             }
-            if(current.y > highestY) {
+            if (current.y > highestY) {
                 highestY = current.y;
-            } else if (current.y < lowestY){
+            } else if (current.y < lowestY) {
                 lowestY = current.y;
             }
         }

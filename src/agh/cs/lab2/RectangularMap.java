@@ -1,8 +1,5 @@
 package agh.cs.lab2;
 
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * Created by yurii on 11/4/16.
  */
@@ -19,7 +16,7 @@ public class RectangularMap extends AbstractWordMap {
     @Override
     public boolean add(Car car) {
         if(canMoveTo(car.getPosition())) {
-            this.carList.add(car);
+            this.cars.put(car.getPosition(), car);
             return true;
         }
         throw new IllegalArgumentException(car.getPosition().toString() + " is already occupied");
@@ -32,20 +29,16 @@ public class RectangularMap extends AbstractWordMap {
 
     @Override
     public boolean isOccupied(Position position) {
-        for (int i = 0; i < carList.size(); i++) {
-            if(carList.get(i).getPosition().equals(position))
-                return true;
-        }
-        return false;
+        if(cars.get(position) != null) {
+            return true;
+        } else return false;
     }
 
     @Override
     public Object objectAt(Position position) {
-        for (int i = 0; i < carList.size(); i++) {
-            if(carList.get(i).getPosition().equals(position))
-                return carList.get(i);
-        }
-        return null;
+        if(cars.get(position) != null) {
+            return cars.get(position);
+        } else return false;
     }
 
     @Override

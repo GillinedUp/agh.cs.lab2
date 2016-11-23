@@ -13,6 +13,7 @@ public class CarSystem {
             List<IMapElement> elementList = new LinkedList<>();
             elementList.add(new HayStack(new Position(-4, -4)));
             elementList.add(new HayStack(new Position(7, 7)));
+            elementList.add(new HayStack(new Position(3, 6)));
             elementList.add(new HayStack(new Position(2, 0)));
             IWorldMap map = new UnboundedMap(elementList);
             map.add(new Car(map));
