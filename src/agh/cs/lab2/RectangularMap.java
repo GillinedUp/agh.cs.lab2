@@ -22,7 +22,7 @@ public class RectangularMap extends AbstractWordMap {
             this.carList.add(car);
             return true;
         }
-        throw new IllegalArgumentException(car.getPosition().toString() + "is already occupied");
+        throw new IllegalArgumentException(car.getPosition().toString() + " is already occupied");
     }
 
     @Override

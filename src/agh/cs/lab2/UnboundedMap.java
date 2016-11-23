@@ -16,14 +16,17 @@ public class UnboundedMap extends AbstractWordMap {
 
     public void addStack(List<IMapElement> stacks) {
         for (int i = 0; i < stacks.size(); i++) {
-
+            if(canMoveTo(stacks.get(i).getPosition())) {
+                elementList.add(stacks.get(i));
+            }
+            else throw new IllegalArgumentException(stacks.get(i).getPosition().toString() + " is already occupied");
         }
     }
 
     @Override
     public boolean canMoveTo (Position position) {
         return (!isOccupied(position));
-    } // true if not occupied and in the map
+    } // true if not occupied
 
     @Override
     public boolean add(Car car) {
@@ -32,7 +35,7 @@ public class UnboundedMap extends AbstractWordMap {
             this.carList.add(car);
             return true;
         }
-        throw new IllegalArgumentException(car.getPosition().toString() + "is already occupied");
+        throw new IllegalArgumentException(car.getPosition().toString() + " is already occupied");
     }
 
     @Override
