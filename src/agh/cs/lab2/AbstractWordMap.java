@@ -24,6 +24,4 @@ public abstract class AbstractWordMap implements IWorldMap{
             }
         }
     }
-
-
 }
