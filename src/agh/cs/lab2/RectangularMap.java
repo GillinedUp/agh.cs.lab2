@@ -45,4 +45,10 @@ public class RectangularMap extends AbstractWordMap {
     public String toString() {
         return new MapVisualizer().dump(this, this.LowerBound, this.UpperBound);
     }
+
+    @Override
+    public void updateMap(Position oldPosition, Car currentCar) {
+        cars.remove(oldPosition);
+        cars.put(currentCar.getPosition(), currentCar);
+    }
 }

@@ -76,4 +76,12 @@ public class UnboundedMap extends AbstractWordMap {
         Position upperBound = new Position(highestX, highestY);
         return new MapVisualizer().dump(this, lowerBound, upperBound);
     }
+
+    @Override
+    public void updateMap(Position oldPosition, Car currentCar) {
+        cars.remove(oldPosition);
+        elements.remove(oldPosition);
+        cars.put(currentCar.getPosition(), currentCar);
+        elements.put(currentCar.getPosition(), currentCar);
+    }
 }

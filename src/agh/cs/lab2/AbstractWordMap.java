@@ -2,6 +2,7 @@ package agh.cs.lab2;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,10 +13,17 @@ public abstract class AbstractWordMap implements IWorldMap{
 
     @Override
     public void run(MoveDirection[] directions) {
+        // get collection of cars values, put it in arraylist, and move every element of that array
+        List<Car> carList = new ArrayList<>(cars.values());
         for(int i = 0; i < directions.length; i++) {
-            // get collection of cars values, get Car object at specific position from that collection, put it in arraylist, and move it
-            (new ArrayList<>(cars.values())).get(i % this.cars.size()).move(directions[i]);
-
+            Car currentCar = carList.get(i % carList.size());
+            Position oldPosition = currentCar.getPosition();
+            currentCar.move(directions[i]);
+            if(!currentCar.getPosition().equals(oldPosition)) {
+                updateMap(oldPosition, currentCar);
+            }
         }
     }
+
+
 }

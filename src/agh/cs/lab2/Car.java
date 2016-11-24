@@ -32,8 +32,8 @@ public class Car implements IMapElement {
         }
     }
 
-    public void moveOptions(MoveDirection[] direction) {
-        for (MoveDirection dir : direction) {
+    public void moveOptions(MoveDirection[] directions) {
+        for (MoveDirection dir : directions) {
             this.move(dir);
         }
     }
