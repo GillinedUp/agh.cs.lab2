@@ -17,6 +17,7 @@ public class RectangularMap extends AbstractWordMap {
     public boolean add(Car car) {
         if(canMoveTo(car.getPosition())) {
             this.cars.put(car.getPosition(), car);
+            car.addListener(this);
             return true;
         }
         throw new IllegalArgumentException(car.getPosition().toString() + " is already occupied");

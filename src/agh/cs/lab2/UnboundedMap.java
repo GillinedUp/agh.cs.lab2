@@ -34,6 +34,7 @@ public class UnboundedMap extends AbstractWordMap {
         if(canMoveTo(car.getPosition())) {
             this.elements.put(car.getPosition(), car);
             this.cars.put(car.getPosition(), car);
+            car.addListener(this);
             return true;
         }
         throw new IllegalArgumentException(car.getPosition().toString() + " is already occupied");

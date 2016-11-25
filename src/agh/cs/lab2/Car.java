@@ -1,21 +1,43 @@
 package agh.cs.lab2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by yurii on 10/28/16.
  */
-public class Car implements IMapElement {
+public class Car implements IMapElement, IPositionChangeObserver{
     private MapDirection direction;
     private Position position;
     private IWorldMap map;
+    private List<IPositionChangeObserver> observers;
 
+    //constructor
     public Car(IWorldMap map, int x, int y) {
         this.map = map;
         this.position = new Position(x, y);
         this.direction = MapDirection.North;
+        this.observers = new ArrayList<>();
     }
 
+    //constructor
     public Car(IWorldMap map) {
         this(map, 0, 0);
+    }
+
+    //observer service methods
+    public void addListener(IPositionChangeObserver observer){
+        observers.add(observer);
+    }
+
+    public void removeListener(IPositionChangeObserver observer){
+        observers.remove(observer);
+    }
+
+    public void positionChanged(Position oldPosition, Position newPosition){
+        for (IPositionChangeObserver observer: observers) {
+            observer.positionChanged(oldPosition, newPosition);
+        }
     }
 
     public Position getPosition() {
@@ -68,7 +90,9 @@ public class Car implements IMapElement {
                 break;
             default: break;
         }
-        if(map.canMoveTo(newPosition))
+        if(map.canMoveTo(newPosition)) {
+            this.positionChanged(this.position, newPosition);
             this.position = newPosition;
+        }
     }
 }

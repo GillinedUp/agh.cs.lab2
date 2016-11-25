@@ -20,9 +20,6 @@ public abstract class AbstractWordMap implements IWorldMap, IPositionChangeObser
             Car currentCar = carList.get(i % carList.size());
             Position oldPosition = currentCar.getPosition();
             currentCar.move(directions[i]);
-            if(!currentCar.getPosition().equals(oldPosition)) {
-                positionChanged(oldPosition, currentCar.getPosition());
-            }
         }
     }
 }
