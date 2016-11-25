@@ -53,6 +53,4 @@ public interface IWorldMap {
      * @return Object or null if the position is not occupied.
      */
     Object objectAt(Position position);
-
-    void updateMap(Position oldPosition, Car currentCar);
 }

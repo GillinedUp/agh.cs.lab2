@@ -77,11 +77,10 @@ public class UnboundedMap extends AbstractWordMap {
         return new MapVisualizer().dump(this, lowerBound, upperBound);
     }
 
-    @Override
-    public void updateMap(Position oldPosition, Car currentCar) {
-        cars.remove(oldPosition);
+    public void positionChanged(Position oldPosition, Position newPosition){
+        Car currentCar = cars.remove(oldPosition);
         elements.remove(oldPosition);
-        cars.put(currentCar.getPosition(), currentCar);
-        elements.put(currentCar.getPosition(), currentCar);
+        cars.put(newPosition, currentCar);
+        elements.put(newPosition, currentCar);
     }
 }

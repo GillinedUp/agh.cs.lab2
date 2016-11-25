@@ -47,8 +47,8 @@ public class RectangularMap extends AbstractWordMap {
     }
 
     @Override
-    public void updateMap(Position oldPosition, Car currentCar) {
-        cars.remove(oldPosition);
-        cars.put(currentCar.getPosition(), currentCar);
+    public void positionChanged(Position oldPosition, Position newPosition){
+        Car currentCar = cars.remove(oldPosition);
+        cars.put(newPosition, currentCar);
     }
 }
