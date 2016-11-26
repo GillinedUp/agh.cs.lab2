@@ -13,14 +13,11 @@ public class RectangularMap extends AbstractWordMap {
         this.LowerBound = new Position(0, 0);
     }
 
+    // update car position on the map
     @Override
-    public boolean add(Car car) {
-        if(canMoveTo(car.getPosition())) {
-            this.cars.put(car.getPosition(), car);
-            car.addListener(this);
-            return true;
-        }
-        throw new IllegalArgumentException(car.getPosition().toString() + " is already occupied");
+    public void positionChanged(Position oldPosition, Position newPosition){
+        Car currentCar = cars.remove(oldPosition);
+        cars.put(newPosition, currentCar);
     }
 
     @Override
@@ -45,11 +42,5 @@ public class RectangularMap extends AbstractWordMap {
     @Override
     public String toString() {
         return new MapVisualizer().dump(this, this.LowerBound, this.UpperBound);
-    }
-
-    @Override
-    public void positionChanged(Position oldPosition, Position newPosition){
-        Car currentCar = cars.remove(oldPosition);
-        cars.put(newPosition, currentCar);
     }
 }

@@ -40,18 +40,9 @@ public class Car implements IMapElement, IPositionChangeObserver{
         }
     }
 
+    //geters
     public Position getPosition() {
         return this.position;
-    }
-
-    public String toString() {
-        switch (this.direction) {
-            case North: return "^";
-            case South: return "v";
-            case East: return ">";
-            case West: return "<";
-            default: return "^";
-        }
     }
 
     public void moveOptions(MoveDirection[] directions) {
@@ -60,6 +51,7 @@ public class Car implements IMapElement, IPositionChangeObserver{
         }
     }
 
+    // move methods
     public void move(MoveDirection direction) {
         switch (direction) {
             case Right: this.direction = this.direction.next();
@@ -93,6 +85,16 @@ public class Car implements IMapElement, IPositionChangeObserver{
         if(map.canMoveTo(newPosition)) {
             this.positionChanged(this.position, newPosition);
             this.position = newPosition;
+        }
+    }
+
+    public String toString() {
+        switch (this.direction) {
+            case North: return "^";
+            case South: return "v";
+            case East: return ">";
+            case West: return "<";
+            default: return "^";
         }
     }
 }
