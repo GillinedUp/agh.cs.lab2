@@ -24,21 +24,27 @@ public class UnboundedMap extends AbstractWordMap {
         }
     }
 
-    @Override
-    public boolean canMoveTo (Position position) {
-        return (!isOccupied(position));
-    } // true if not occupied
+    // update car position on the map
+    public void positionChanged(Position oldPosition, Position newPosition){
+        Car currentCar = cars.remove(oldPosition);
+        elements.remove(oldPosition);
+        cars.put(newPosition, currentCar);
+        elements.put(newPosition, currentCar);
+    }
 
     @Override
     public boolean add(Car car) {
-        if(canMoveTo(car.getPosition())) {
+        if(super.add(car)) {
             this.elements.put(car.getPosition(), car);
-            this.cars.put(car.getPosition(), car);
-            car.addListener(this);
             return true;
         }
         throw new IllegalArgumentException(car.getPosition().toString() + " is already occupied");
     }
+
+    @Override
+    public boolean canMoveTo (Position position) {
+        return (!isOccupied(position));
+    } // true if not occupied
 
     @Override
     public boolean isOccupied(Position position) {
@@ -56,6 +62,7 @@ public class UnboundedMap extends AbstractWordMap {
 
     @Override
     public String toString() {
+        // calculate map boundaries based on objects
         int highestX = 0;
         int lowestX = 0;
         int highestY = 0;
@@ -76,12 +83,5 @@ public class UnboundedMap extends AbstractWordMap {
         Position lowerBound = new Position(lowestX, lowestY);
         Position upperBound = new Position(highestX, highestY);
         return new MapVisualizer().dump(this, lowerBound, upperBound);
-    }
-
-    public void positionChanged(Position oldPosition, Position newPosition){
-        Car currentCar = cars.remove(oldPosition);
-        elements.remove(oldPosition);
-        cars.put(newPosition, currentCar);
-        elements.put(newPosition, currentCar);
     }
 }
